@@ -49,8 +49,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LopBLL.cs" />
+    <Compile Include="Category\GiaoVienBLL.cs" />
+    <Compile Include="Category\HocKyBLL.cs" />
+    <Compile Include="Category\HocSinhBLL.cs" />
+    <Compile Include="Category\LoaiDiemBLL.cs" />
+    <Compile Include="Category\LopBLL.cs" />
+    <Compile Include="Category\MonHocBLL.cs" />
+    <Compile Include="Category\NamHocBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Teaching\PhanCongBLL.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -78,6 +85,11 @@
       <Project>{3bde4e3e-6821-4281-9126-37ff85274f49}</Project>
       <Name>QuanLyDiem.DAL</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Point\" />
+    <Folder Include="Report\" />
+    <Folder Include="System\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

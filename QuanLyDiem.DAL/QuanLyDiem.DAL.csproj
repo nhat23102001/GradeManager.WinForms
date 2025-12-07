@@ -50,9 +50,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Category\LoaiDiemDAL.cs" />
     <Compile Include="DbHelper.cs" />
-    <Compile Include="LopDAL.cs" />
+    <Compile Include="Category\GiaoVienDAL.cs" />
+    <Compile Include="Category\HocKyDAL.cs" />
+    <Compile Include="Category\HocSinhDAL.cs" />
+    <Compile Include="Category\LopDAL.cs" />
+    <Compile Include="Category\MonHocDAL.cs" />
+    <Compile Include="Category\NamHocDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Teaching\PhanCongDAL.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -77,6 +84,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DB\" />
+    <Folder Include="Point\" />
+    <Folder Include="Report\" />
+    <Folder Include="System\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

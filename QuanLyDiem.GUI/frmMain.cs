@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QuanLyDiem.GUI.Teaching;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -58,12 +59,42 @@ namespace QuanLyDiem.GUI
 
         private void mnuHocSinh_Click(object sender, EventArgs e)
         {
-            //OpenChildForm(new frmHocSinh());
+            OpenChildForm(new frmHocSinh());
         }
 
         private void mnuLop_Click(object sender, EventArgs e)
         {
             OpenChildForm(new frmLop());
+        }
+
+        private void mnuMonHoc_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new frmMonHoc());
+        }
+
+        private void mnuGiaoVien_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new frmGiaoVien());
+        }
+
+        private void mnuNamHoc_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new frmNamHoc());
+        }
+
+        private void mnuHocKy_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new frmHocKy());
+        }
+
+        private void mnuLoaiDiem_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new frmLoaiDiem());
+        }
+
+        private void mnuPhanCong_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new frmPhanCong());
         }
     }
 }

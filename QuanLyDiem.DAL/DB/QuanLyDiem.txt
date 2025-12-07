@@ -1,0 +1,207 @@
+CREATE DATABASE QuanLyDiem;
+GO
+USE QuanLyDiem;
+GO
+
+CREATE TABLE Lop (
+    IDLop INT IDENTITY(1,1) PRIMARY KEY,
+    MaLop NVARCHAR(20) NOT NULL UNIQUE,  -- cho người dùng nhập
+    TenLop NVARCHAR(50) NOT NULL,
+    Khoi NVARCHAR(20) NULL,
+    SiSo INT DEFAULT 0
+);
+GO
+
+CREATE TABLE HocSinh (
+    IDHS INT IDENTITY(1,1) PRIMARY KEY,
+    MaHS NVARCHAR(20) NOT NULL UNIQUE,   -- HS01, HS02, D23CNTT01,...
+    HoTen NVARCHAR(100) NOT NULL,
+    NgaySinh DATE NULL,
+    GioiTinh BIT NULL,       -- 1 = Nam, 0 = Nữ
+    DiaChi NVARCHAR(200) NULL,
+    IDLop INT NOT NULL,
+    CONSTRAINT FK_HS_Lop FOREIGN KEY(IDLop) REFERENCES Lop(IDLop)
+);
+GO
+
+CREATE TABLE MonHoc (
+    IDMon INT IDENTITY(1,1) PRIMARY KEY,
+    MaMon NVARCHAR(20) NOT NULL UNIQUE,
+    TenMon NVARCHAR(100) NOT NULL,
+    HeSo INT DEFAULT 1
+);
+GO
+
+CREATE TABLE GiaoVien (
+    IDGV INT IDENTITY(1,1) PRIMARY KEY,
+    MaGV NVARCHAR(20) NOT NULL UNIQUE,
+    HoTen NVARCHAR(100) NOT NULL,
+    SDT VARCHAR(15) NULL
+);
+GO
+
+CREATE TABLE NamHoc (
+    IDNamHoc INT IDENTITY(1,1) PRIMARY KEY,
+    TenNamHoc NVARCHAR(20) NOT NULL UNIQUE
+);
+GO
+
+CREATE TABLE HocKy (
+    IDHocKy INT IDENTITY(1,1) PRIMARY KEY,
+    TenHocKy NVARCHAR(20) NOT NULL UNIQUE
+);
+GO
+
+CREATE TABLE LoaiDiem (
+    IDLoaiDiem INT IDENTITY(1,1) PRIMARY KEY,
+    TenLoaiDiem NVARCHAR(50) NOT NULL,
+    HeSo INT DEFAULT 1
+);
+GO
+
+CREATE TABLE PhanCong (
+    IDPC INT IDENTITY(1,1) PRIMARY KEY,
+    IDGV INT NOT NULL,
+    IDLop INT NOT NULL,
+    IDMon INT NOT NULL,
+    CONSTRAINT FK_PC_GV FOREIGN KEY(IDGV) REFERENCES GiaoVien(IDGV),
+    CONSTRAINT FK_PC_Lop FOREIGN KEY(IDLop) REFERENCES Lop(IDLop),
+    CONSTRAINT FK_PC_Mon FOREIGN KEY(IDMon) REFERENCES MonHoc(IDMon)
+);
+GO
+
+CREATE TABLE BangDiem (
+    IDBangDiem INT IDENTITY(1,1) PRIMARY KEY,
+    IDHS INT NOT NULL,
+    IDMon INT NOT NULL,
+    IDNamHoc INT NOT NULL,
+    IDHocKy INT NOT NULL,
+    IDLoaiDiem INT NOT NULL,
+    Diem FLOAT NOT NULL,
+    NgayNhap DATE DEFAULT GETDATE(),
+
+    CONSTRAINT FK_BD_HS FOREIGN KEY(IDHS) REFERENCES HocSinh(IDHS),
+    CONSTRAINT FK_BD_Mon FOREIGN KEY(IDMon) REFERENCES MonHoc(IDMon),
+    CONSTRAINT FK_BD_Nam FOREIGN KEY(IDNamHoc) REFERENCES NamHoc(IDNamHoc),
+    CONSTRAINT FK_BD_HK FOREIGN KEY(IDHocKy) REFERENCES HocKy(IDHocKy),
+    CONSTRAINT FK_BD_LD FOREIGN KEY(IDLoaiDiem) REFERENCES LoaiDiem(IDLoaiDiem)
+);
+GO
+
+CREATE TABLE TaiKhoan (
+    IDTK INT IDENTITY(1,1) PRIMARY KEY,
+    TenDangNhap VARCHAR(50) NOT NULL UNIQUE,
+    MatKhau VARCHAR(100) NOT NULL,
+    VaiTro NVARCHAR(50) NOT NULL
+);
+GO
+
+CREATE OR ALTER PROCEDURE sp_Lop_GetAll
+AS
+BEGIN
+    SELECT * FROM Lop ORDER BY IDLop;
+END
+GO
+
+CREATE OR ALTER PROCEDURE sp_Lop_Insert
+    @MaLop NVARCHAR(20),
+    @TenLop NVARCHAR(50),
+    @Khoi NVARCHAR(20),
+    @SiSo INT
+AS
+BEGIN
+    INSERT INTO Lop(MaLop, TenLop, Khoi, SiSo)
+    VALUES(@MaLop, @TenLop, @Khoi, @SiSo);
+END
+GO
+
+CREATE OR ALTER PROCEDURE sp_Lop_Update
+    @IDLop INT,
+    @MaLop NVARCHAR(20),
+    @TenLop NVARCHAR(50),
+    @Khoi NVARCHAR(20),
+    @SiSo INT
+AS
+BEGIN
+    UPDATE Lop
+    SET MaLop=@MaLop, TenLop=@TenLop, Khoi=@Khoi, SiSo=@SiSo
+    WHERE IDLop=@IDLop;
+END
+GO
+
+CREATE OR ALTER PROCEDURE sp_Lop_Delete
+    @IDLop INT
+AS
+BEGIN
+    DELETE FROM Lop WHERE IDLop=@IDLop;
+END
+GO
+
+CREATE OR ALTER PROCEDURE sp_HocSinh_GetAll
+AS
+BEGIN
+    SELECT HS.*, L.TenLop
+    FROM HocSinh HS
+    JOIN Lop L ON HS.IDLop = L.IDLop
+    ORDER BY IDHS;
+END
+GO
+
+CREATE OR ALTER PROCEDURE sp_HocSinh_Insert
+    @MaHS NVARCHAR(20),
+    @HoTen NVARCHAR(100),
+    @NgaySinh DATE,
+    @GioiTinh BIT,
+    @DiaChi NVARCHAR(200),
+    @IDLop INT
+AS
+BEGIN
+    INSERT INTO HocSinh(MaHS, HoTen, NgaySinh, GioiTinh, DiaChi, IDLop)
+    VALUES(@MaHS, @HoTen, @NgaySinh, @GioiTinh, @DiaChi, @IDLop);
+END
+GO
+
+CREATE OR ALTER PROCEDURE sp_HocSinh_Update
+    @IDHS INT,
+    @MaHS NVARCHAR(20),
+    @HoTen NVARCHAR(100),
+    @NgaySinh DATE,
+    @GioiTinh BIT,
+    @DiaChi NVARCHAR(200),
+    @IDLop INT
+AS
+BEGIN
+    UPDATE HocSinh
+    SET MaHS=@MaHS, HoTen=@HoTen, NgaySinh=@NgaySinh, GioiTinh=@GioiTinh, 
+        DiaChi=@DiaChi, IDLop=@IDLop
+    WHERE IDHS=@IDHS;
+END
+GO
+
+CREATE OR ALTER PROCEDURE sp_HocSinh_Delete
+    @IDHS INT
+AS
+BEGIN
+    DELETE FROM HocSinh WHERE IDHS=@IDHS;
+END
+GO
+
+CREATE OR ALTER PROCEDURE sp_Lop_GetAllSimple
+AS
+BEGIN
+    SELECT 
+        IDLop,       -- khóa chính thật (INT IDENTITY)
+        MaLop,       -- mã lớp do người dùng nhập
+        TenLop       -- tên lớp hiển thị
+    FROM Lop
+    ORDER BY TenLop;
+END
+GO
+CREATE PROCEDURE sp_Lop_GetAllSimple
+AS
+BEGIN
+    SELECT MaLop, TenLop 
+    FROM Lop 
+    ORDER BY TenLop;
+END
+

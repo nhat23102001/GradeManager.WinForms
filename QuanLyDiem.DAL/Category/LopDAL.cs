@@ -15,19 +15,12 @@ namespace QuanLyDiem.DAL
             return DbHelper.ExecuteQuery("sp_Lop_GetAll");
         }
 
-        public int Insert(string tenLop, string khoi, int siSo)
+        public DataTable GetAllSimple()
         {
-            SqlParameter[] param =
-            {
-                new SqlParameter("@TenLop", tenLop),
-                new SqlParameter("@Khoi", khoi),
-                new SqlParameter("@SiSo", siSo)
-            };
-
-            return DbHelper.ExecuteNonQuery("sp_Lop_Insert", param);
+            return DbHelper.ExecuteQuery("sp_Lop_GetAllSimple");
         }
 
-        public int Update(int maLop, string tenLop, string khoi, int siSo)
+        public int Insert(string maLop, string tenLop, string khoi, int siSo)
         {
             SqlParameter[] param =
             {
@@ -37,14 +30,28 @@ namespace QuanLyDiem.DAL
                 new SqlParameter("@SiSo", siSo)
             };
 
-            return DbHelper.ExecuteNonQuery("sp_Lop_Update", param);
+            return DbHelper.ExecuteNonQuery("sp_Lop_Insert", param);
         }
 
-        public int Delete(int maLop)
+        public int Update(int idLop, string maLop, string tenLop, string khoi, int siSo)
         {
             SqlParameter[] param =
             {
-                new SqlParameter("@MaLop", maLop)
+                new SqlParameter("@IDLop", idLop),
+                new SqlParameter("@MaLop", maLop),
+                new SqlParameter("@TenLop", tenLop),
+                new SqlParameter("@Khoi", khoi),
+                new SqlParameter("@SiSo", siSo)
+            };
+
+            return DbHelper.ExecuteNonQuery("sp_Lop_Update", param);
+        }
+
+        public int Delete(int idLop)
+        {
+            SqlParameter[] param =
+            {
+                new SqlParameter("@IDLop", idLop)
             };
 
             return DbHelper.ExecuteNonQuery("sp_Lop_Delete", param);

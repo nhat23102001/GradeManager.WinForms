@@ -11,16 +11,16 @@ using System.Windows.Forms;
 
 namespace QuanLyDiem.GUI
 {
-    public partial class frmLop : Form
+    public partial class frmHocKy : Form
     {
-        LopBLL bll = new LopBLL();
+        private readonly HocKyBLL bll = new HocKyBLL();
         private bool isAdding = false;
-        public frmLop()
+        public frmHocKy()
         {
             InitializeComponent();
         }
 
-        private void frmLop_Load(object sender, EventArgs e)
+        private void frmHocKy_Load(object sender, EventArgs e)
         {
             LoadData();
             SetControls(false);
@@ -28,26 +28,19 @@ namespace QuanLyDiem.GUI
 
         private void LoadData()
         {
-            dgvLop.DataSource = bll.LayDanhSachLop();
-            dgvLop.Columns["MaLop"].HeaderText = "Mã lớp";
-            dgvLop.Columns["TenLop"].HeaderText = "Tên lớp";
-            dgvLop.Columns["Khoi"].HeaderText = "Khối";
-            dgvLop.Columns["SiSo"].HeaderText = "Sĩ số";
-        }
+            dgvHocKy.DataSource = bll.LayDanhSachHocKy();
 
-        private void ClearInputs()
-        {
-            txtMaLop.Text = "";
-            txtTenLop.Text = "";
-            txtKhoi.Text = "";
-            txtSiSo.Text = "";
+            if (dgvHocKy.Columns.Contains("IDHocKy"))
+                dgvHocKy.Columns["IDHocKy"].Visible = false;
+
+            dgvHocKy.Columns["TenHocKy"].HeaderText = "Tên học kỳ";
+
+            dgvHocKy.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
         private void SetControls(bool editing)
         {
-            txtTenLop.Enabled = editing;
-            txtKhoi.Enabled = editing;
-            txtSiSo.Enabled = editing;
+            txtTenHocKy.Enabled = editing;
 
             btnThem.Enabled = !editing;
             btnSua.Enabled = !editing;
@@ -57,14 +50,18 @@ namespace QuanLyDiem.GUI
             btnHuy.Enabled = editing;
         }
 
-        private void dgvLop_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void ClearInputs()
         {
-            if (e.RowIndex >= 0)
+            txtIDHocKy.Text = "";
+            txtTenHocKy.Text = "";
+        }
+
+        private void dgvHocKy_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && dgvHocKy.CurrentRow != null)
             {
-                txtMaLop.Text = dgvLop.CurrentRow.Cells["MaLop"].Value.ToString();
-                txtTenLop.Text = dgvLop.CurrentRow.Cells["TenLop"].Value.ToString();
-                txtKhoi.Text = dgvLop.CurrentRow.Cells["Khoi"].Value.ToString();
-                txtSiSo.Text = dgvLop.CurrentRow.Cells["SiSo"].Value.ToString();
+                txtIDHocKy.Text = dgvHocKy.CurrentRow.Cells["IDHocKy"].Value.ToString();
+                txtTenHocKy.Text = dgvHocKy.CurrentRow.Cells["TenHocKy"].Value.ToString();
             }
         }
 
@@ -73,32 +70,36 @@ namespace QuanLyDiem.GUI
             isAdding = true;
             ClearInputs();
             SetControls(true);
+            txtTenHocKy.Focus();
         }
 
         private void btnSua_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtMaLop.Text))
+            if (string.IsNullOrWhiteSpace(txtIDHocKy.Text))
             {
-                MessageBox.Show("Hãy chọn lớp muốn sửa!");
+                MessageBox.Show("Vui lòng chọn học kỳ muốn sửa!");
                 return;
             }
+
             isAdding = false;
             SetControls(true);
         }
 
         private void btnXoa_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtMaLop.Text))
+            if (string.IsNullOrWhiteSpace(txtIDHocKy.Text))
             {
-                MessageBox.Show("Hãy chọn lớp muốn xóa!");
+                MessageBox.Show("Vui lòng chọn học kỳ muốn xóa!");
                 return;
             }
 
-            if (MessageBox.Show("Bạn có chắc muốn xóa?", "Xác nhận",
-                                MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show("Bạn có chắc chắn muốn xóa?", "Xác nhận",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                string error;
-                if (bll.Xoa(int.Parse(txtMaLop.Text), out error))
+                string error = "";
+                int id = int.Parse(txtIDHocKy.Text);
+
+                if (bll.Xoa(id, out error))
                 {
                     MessageBox.Show("Xóa thành công!");
                     LoadData();
@@ -112,21 +113,19 @@ namespace QuanLyDiem.GUI
 
         private void btnLuu_Click(object sender, EventArgs e)
         {
-            string ten = txtTenLop.Text.Trim();
-            string khoi = txtKhoi.Text.Trim();
-            int siSo = int.Parse(txtSiSo.Text);
+            string tenHK = txtTenHocKy.Text.Trim();
 
             string error;
             bool success;
 
             if (isAdding)
             {
-                success = bll.Them(ten, khoi, siSo, out error);
+                success = bll.Them(tenHK, out error);
             }
             else
             {
-                int ma = int.Parse(txtMaLop.Text);
-                success = bll.Sua(ma, ten, khoi, siSo, out error);
+                int id = int.Parse(txtIDHocKy.Text);
+                success = bll.Sua(id, tenHK, out error);
             }
 
             if (success)
@@ -144,14 +143,15 @@ namespace QuanLyDiem.GUI
         private void btnHuy_Click(object sender, EventArgs e)
         {
             SetControls(false);
-            if (dgvLop.CurrentRow != null)
-                dgvLop_CellClick(null, new DataGridViewCellEventArgs(0, dgvLop.CurrentRow.Index));
+
+            if (dgvHocKy.CurrentRow != null)
+                dgvHocKy_CellClick(null,
+                    new DataGridViewCellEventArgs(0, dgvHocKy.CurrentRow.Index));
         }
 
         private void btnThoat_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-
     }
 }

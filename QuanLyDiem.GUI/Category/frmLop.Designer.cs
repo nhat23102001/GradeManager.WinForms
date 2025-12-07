@@ -47,6 +47,7 @@
             this.dgvLop = new System.Windows.Forms.DataGridView();
             this.statusMain = new System.Windows.Forms.StatusStrip();
             this.lblTrangThai = new System.Windows.Forms.ToolStripStatusLabel();
+            this.txtIDLop = new System.Windows.Forms.TextBox();
             this.grpThongTinLop.SuspendLayout();
             this.grpChucNang.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLop)).BeginInit();
@@ -237,11 +238,21 @@
             this.lblTrangThai.Size = new System.Drawing.Size(54, 17);
             this.lblTrangThai.Text = "Sẵn sàng";
             // 
+            // txtIDLop
+            // 
+            this.txtIDLop.Location = new System.Drawing.Point(15, 12);
+            this.txtIDLop.Name = "txtIDLop";
+            this.txtIDLop.ReadOnly = true;
+            this.txtIDLop.Size = new System.Drawing.Size(100, 25);
+            this.txtIDLop.TabIndex = 4;
+            this.txtIDLop.Visible = false;
+            // 
             // frmLop
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1031, 734);
+            this.Controls.Add(this.txtIDLop);
             this.Controls.Add(this.statusMain);
             this.Controls.Add(this.dgvLop);
             this.Controls.Add(this.grpChucNang);
@@ -284,5 +295,6 @@
         private System.Windows.Forms.DataGridView dgvLop;
         private System.Windows.Forms.StatusStrip statusMain;
         private System.Windows.Forms.ToolStripStatusLabel lblTrangThai;
+        private System.Windows.Forms.TextBox txtIDLop;
     }
 }
