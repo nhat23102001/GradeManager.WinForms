@@ -56,6 +56,7 @@
     <Compile Include="Category\LopBLL.cs" />
     <Compile Include="Category\MonHocBLL.cs" />
     <Compile Include="Category\NamHocBLL.cs" />
+    <Compile Include="Point\BangDiemBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Teaching\PhanCongBLL.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -87,7 +88,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Point\" />
     <Folder Include="Report\" />
     <Folder Include="System\" />
   </ItemGroup>

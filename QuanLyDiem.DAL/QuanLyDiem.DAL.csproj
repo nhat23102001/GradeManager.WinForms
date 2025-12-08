@@ -58,6 +58,7 @@
     <Compile Include="Category\LopDAL.cs" />
     <Compile Include="Category\MonHocDAL.cs" />
     <Compile Include="Category\NamHocDAL.cs" />
+    <Compile Include="Point\BangDiemDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Teaching\PhanCongDAL.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -84,7 +85,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DB\" />
-    <Folder Include="Point\" />
     <Folder Include="Report\" />
     <Folder Include="System\" />
   </ItemGroup>
