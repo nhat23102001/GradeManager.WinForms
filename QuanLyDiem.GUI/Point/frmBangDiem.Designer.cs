@@ -49,6 +49,8 @@
             this.btnXoa = new System.Windows.Forms.Button();
             this.btnSua = new System.Windows.Forms.Button();
             this.btnThem = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.cboLoaiDiem = new System.Windows.Forms.ComboBox();
             this.grpFilter.SuspendLayout();
             this.grpHocSinh.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHocSinh)).BeginInit();
@@ -59,6 +61,8 @@
             // 
             // grpFilter
             // 
+            this.grpFilter.Controls.Add(this.cboLoaiDiem);
+            this.grpFilter.Controls.Add(this.label1);
             this.grpFilter.Controls.Add(this.cboLop);
             this.grpFilter.Controls.Add(this.cboMon);
             this.grpFilter.Controls.Add(this.cboHocKy);
@@ -69,7 +73,7 @@
             this.grpFilter.Controls.Add(this.lblNamHoc);
             this.grpFilter.Location = new System.Drawing.Point(20, 15);
             this.grpFilter.Name = "grpFilter";
-            this.grpFilter.Size = new System.Drawing.Size(1150, 100);
+            this.grpFilter.Size = new System.Drawing.Size(1750, 100);
             this.grpFilter.TabIndex = 0;
             this.grpFilter.TabStop = false;
             this.grpFilter.Text = "Bộ lọc";
@@ -147,7 +151,7 @@
             this.grpHocSinh.Controls.Add(this.dgvHocSinh);
             this.grpHocSinh.Location = new System.Drawing.Point(20, 140);
             this.grpHocSinh.Name = "grpHocSinh";
-            this.grpHocSinh.Size = new System.Drawing.Size(350, 420);
+            this.grpHocSinh.Size = new System.Drawing.Size(767, 420);
             this.grpHocSinh.TabIndex = 1;
             this.grpHocSinh.TabStop = false;
             this.grpHocSinh.Text = "Danh sách học sinh";
@@ -161,17 +165,18 @@
             this.dgvHocSinh.Name = "dgvHocSinh";
             this.dgvHocSinh.ReadOnly = true;
             this.dgvHocSinh.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvHocSinh.Size = new System.Drawing.Size(330, 370);
+            this.dgvHocSinh.Size = new System.Drawing.Size(751, 370);
             this.dgvHocSinh.TabIndex = 0;
             this.dgvHocSinh.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvHocSinh_CellClick);
+            this.dgvHocSinh.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvHocSinh_CellFormatting);
             // 
             // grpBangDiem
             // 
             this.grpBangDiem.Controls.Add(this.dgvBangDiem);
             this.grpBangDiem.ForeColor = System.Drawing.Color.Black;
-            this.grpBangDiem.Location = new System.Drawing.Point(380, 140);
+            this.grpBangDiem.Location = new System.Drawing.Point(793, 140);
             this.grpBangDiem.Name = "grpBangDiem";
-            this.grpBangDiem.Size = new System.Drawing.Size(790, 420);
+            this.grpBangDiem.Size = new System.Drawing.Size(977, 420);
             this.grpBangDiem.TabIndex = 2;
             this.grpBangDiem.TabStop = false;
             this.grpBangDiem.Text = "Bảng điểm";
@@ -181,11 +186,11 @@
             this.dgvBangDiem.AllowUserToAddRows = false;
             this.dgvBangDiem.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvBangDiem.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvBangDiem.Location = new System.Drawing.Point(10, 25);
+            this.dgvBangDiem.Location = new System.Drawing.Point(6, 25);
             this.dgvBangDiem.Name = "dgvBangDiem";
             this.dgvBangDiem.ReadOnly = true;
             this.dgvBangDiem.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvBangDiem.Size = new System.Drawing.Size(770, 370);
+            this.dgvBangDiem.Size = new System.Drawing.Size(965, 370);
             this.dgvBangDiem.TabIndex = 0;
             this.dgvBangDiem.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvBangDiem_CellClick);
             // 
@@ -200,7 +205,7 @@
             this.grpChucNang.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grpChucNang.Location = new System.Drawing.Point(22, 579);
             this.grpChucNang.Name = "grpChucNang";
-            this.grpChucNang.Size = new System.Drawing.Size(1150, 80);
+            this.grpChucNang.Size = new System.Drawing.Size(1748, 80);
             this.grpChucNang.TabIndex = 5;
             this.grpChucNang.TabStop = false;
             this.grpChucNang.Text = "Chức năng";
@@ -265,11 +270,28 @@
             this.btnThem.UseVisualStyleBackColor = true;
             this.btnThem.Click += new System.EventHandler(this.btnThem_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(1030, 35);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(37, 17);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Lớp :";
+            // 
+            // cboLoaiDiem
+            // 
+            this.cboLoaiDiem.FormattingEnabled = true;
+            this.cboLoaiDiem.Location = new System.Drawing.Point(1073, 32);
+            this.cboLoaiDiem.Name = "cboLoaiDiem";
+            this.cboLoaiDiem.Size = new System.Drawing.Size(150, 25);
+            this.cboLoaiDiem.TabIndex = 9;
+            // 
             // frmBangDiem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1184, 681);
+            this.ClientSize = new System.Drawing.Size(1784, 681);
             this.Controls.Add(this.grpChucNang);
             this.Controls.Add(this.grpBangDiem);
             this.Controls.Add(this.grpHocSinh);
@@ -316,5 +338,7 @@
         private System.Windows.Forms.Button btnXoa;
         private System.Windows.Forms.Button btnSua;
         private System.Windows.Forms.Button btnThem;
+        private System.Windows.Forms.ComboBox cboLoaiDiem;
+        private System.Windows.Forms.Label label1;
     }
 }

@@ -1,4 +1,5 @@
 ﻿using QuanLyDiem.BLL;
+using QuanLyDiem.BLL.Category;
 using QuanLyDiem.BLL.Point;
 using System;
 using System.Collections.Generic;
@@ -15,11 +16,13 @@ namespace QuanLyDiem.GUI.Point
 {
     public partial class frmBangDiem : Form
     {
-        BangDiemBLL bllDB = new BangDiemBLL();
+        BangDiemBLL bllBD = new BangDiemBLL();
         NamHocBLL bllNH = new NamHocBLL();
         HocKyBLL bllHK = new HocKyBLL();
         MonHocBLL bllMH = new MonHocBLL();
         LopBLL bllL = new LopBLL();
+        HocSinhBLL bllHS = new HocSinhBLL();
+        LoaiDiemBLL bllLD = new LoaiDiemBLL();
 
         bool isAdding = false;
         int selectedHS = 0;
@@ -35,6 +38,7 @@ namespace QuanLyDiem.GUI.Point
             LoadCombos();
             LoadHocSinh();
             LoadBangDiem();
+            LoadLoaiDiem();
             SetControls(false);
 
             cboNamHoc.SelectedIndexChanged += FilterChanged;
@@ -69,43 +73,114 @@ namespace QuanLyDiem.GUI.Point
 
             LoadHocSinh();
             LoadBangDiem();
+           
         }
 
         private void LoadHocSinh()
         {
             if (cboLop.SelectedValue == null) return;
 
-            dgvHocSinh.DataSource = bllDB.LayDanhSachHocSinh((int)cboLop.SelectedValue);
+            dgvHocSinh.DataSource = bllHS.LayHocSinhTheoLop((int)cboLop.SelectedValue);
 
+            // Ẩn ID
             dgvHocSinh.Columns["IDHS"].Visible = false;
-            dgvHocSinh.Columns["HoTen"].HeaderText = "Họ tên";
-           // dgvHocSinh.Columns["NgaySinh"].HeaderText = "Ngày sinh";
-           // dgvHocSinh.Columns["DiaChi"].HeaderText = "Địa chỉ";
 
-            dgvHocSinh.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            // Set tiêu đề
+            dgvHocSinh.Columns["MaHS"].HeaderText = "Mã HS";
+            dgvHocSinh.Columns["HoTen"].HeaderText = "Họ tên";
+            dgvHocSinh.Columns["NgaySinh"].HeaderText = "Ngày sinh";
+            dgvHocSinh.Columns.Remove("GioiTinh");
+
+            DataGridViewTextBoxColumn colGT = new DataGridViewTextBoxColumn();
+            colGT.Name = "GioiTinh";
+            colGT.HeaderText = "Giới tính";
+            colGT.DataPropertyName = "GioiTinh";
+            dgvHocSinh.Columns.Add(colGT);
+
+            dgvHocSinh.Columns["DiaChi"].HeaderText = "Địa chỉ";
+            dgvHocSinh.Columns["TenLop"].HeaderText = "Lớp";
+
+            dgvHocSinh.Columns["MaHS"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dgvHocSinh.Columns["HoTen"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dgvHocSinh.Columns["NgaySinh"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dgvHocSinh.Columns["GioiTinh"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dgvHocSinh.Columns["DiaChi"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dgvHocSinh.Columns["TenLop"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+
+            dgvHocSinh.RowHeadersVisible = false; 
         }
 
         private void LoadBangDiem()
         {
             if (cboNamHoc.SelectedValue == null ||
-                cboHocKy.SelectedValue == null ||
-                cboMon.SelectedValue == null ||
-                cboLop.SelectedValue == null) return;
+               cboHocKy.SelectedValue == null ||
+               cboMon.SelectedValue == null ||
+               cboLop.SelectedValue == null) return;
 
-            dgvBangDiem.DataSource = bllDB.LayBangDiem(
+            dgvBangDiem.DataSource = bllBD.LayBangDiem(
                 (int)cboNamHoc.SelectedValue,
                 (int)cboHocKy.SelectedValue,
                 (int)cboMon.SelectedValue,
                 (int)cboLop.SelectedValue
             );
 
+            if (dgvBangDiem.DataSource == null) return;
+
+            // Ẩn các ID
             dgvBangDiem.Columns["IDBangDiem"].Visible = false;
+            dgvBangDiem.Columns["IDHS"].Visible = false;
+            dgvBangDiem.Columns["IDMon"].Visible = false;
+            dgvBangDiem.Columns["IDNamHoc"].Visible = false;
+            dgvBangDiem.Columns["IDHocKy"].Visible = false;
+            dgvBangDiem.Columns["IDLoaiDiem"].Visible = false;
+
+            // ----- Đổi tên cột -----
+            dgvBangDiem.Columns["MaHS"].HeaderText = "Mã HS";
+            dgvBangDiem.Columns["HoTen"].HeaderText = "Họ tên";
+            dgvBangDiem.Columns["TenLop"].HeaderText = "Lớp";
+            dgvBangDiem.Columns["TenMon"].HeaderText = "Môn học";
+            dgvBangDiem.Columns["TenLoaiDiem"].HeaderText = "Loại điểm";
+            dgvBangDiem.Columns["HeSoDiem"].HeaderText = "Hệ số";
             dgvBangDiem.Columns["Diem"].HeaderText = "Điểm";
             dgvBangDiem.Columns["NgayNhap"].HeaderText = "Ngày nhập";
+            dgvBangDiem.Columns["TenHocKy"].HeaderText = "Học kỳ";
+            dgvBangDiem.Columns["TenNamHoc"].HeaderText = "Năm học";
 
-            dgvBangDiem.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            // ----- Thiết lập kích thước cột -----
+            dgvBangDiem.Columns["MaHS"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dgvBangDiem.Columns["HoTen"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dgvBangDiem.Columns["TenLop"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dgvBangDiem.Columns["TenMon"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dgvBangDiem.Columns["TenLoaiDiem"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dgvBangDiem.Columns["HeSoDiem"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dgvBangDiem.Columns["Diem"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dgvBangDiem.Columns["NgayNhap"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dgvBangDiem.Columns["TenHocKy"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dgvBangDiem.Columns["TenNamHoc"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+
+            // Bỏ row header
+            dgvBangDiem.RowHeadersVisible = false;
+
+            // ----- Sắp xếp lại thứ tự cột -----
+            dgvBangDiem.Columns["MaHS"].DisplayIndex = 0;
+            dgvBangDiem.Columns["HoTen"].DisplayIndex = 1;
+            dgvBangDiem.Columns["TenLop"].DisplayIndex = 2;
+            dgvBangDiem.Columns["TenMon"].DisplayIndex = 3;
+            dgvBangDiem.Columns["TenLoaiDiem"].DisplayIndex = 4;
+            dgvBangDiem.Columns["HeSoDiem"].DisplayIndex = 5;
+            dgvBangDiem.Columns["Diem"].DisplayIndex = 6;
+            dgvBangDiem.Columns["NgayNhap"].DisplayIndex = 7;
+            dgvBangDiem.Columns["TenHocKy"].DisplayIndex = 8;
+            dgvBangDiem.Columns["TenNamHoc"].DisplayIndex = 9;
         }
 
+        private void LoadLoaiDiem()
+        {
+            cboLoaiDiem.DataSource = bllLD.LayDanhSachLoaiDiem();
+            cboLoaiDiem.DisplayMember = "TenLoaiDiem";
+            cboLoaiDiem.ValueMember = "IDLoaiDiem";
+            cboLoaiDiem.SelectedIndex = 0;
+        }
 
 
         private void dgvHocSinh_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -166,7 +241,7 @@ namespace QuanLyDiem.GUI.Point
                 MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 string err;
-                if (bllDB.XoaDiem(selectedBangDiem, out err))
+                if (bllBD.XoaDiem(selectedBangDiem, out err))
                 {
                     LoadBangDiem();
                     selectedBangDiem = 0;
@@ -190,12 +265,12 @@ namespace QuanLyDiem.GUI.Point
 
             if (isAdding)
             {
-                if (bllDB.ThemDiem(
+                if (bllBD.ThemDiem(
                     selectedHS,
                     (int)cboMon.SelectedValue,
                     (int)cboNamHoc.SelectedValue,
                     (int)cboHocKy.SelectedValue,
-                    1, // mặc định loại điểm 1 tiết
+                    (int)cboLoaiDiem.SelectedValue,
                     diem,
                     out err))
                 {
@@ -205,7 +280,7 @@ namespace QuanLyDiem.GUI.Point
             }
             else
             {
-                if (bllDB.SuaDiem(selectedBangDiem, diem, out err))
+                if (bllBD.SuaDiem(selectedBangDiem, diem, out err))
                 {
                     LoadBangDiem();
                 }
@@ -223,6 +298,20 @@ namespace QuanLyDiem.GUI.Point
         private void btnThoat_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void dgvHocSinh_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (dgvHocSinh.Columns[e.ColumnIndex].Name == "GioiTinh")
+            {
+                if (e.Value != null && e.Value is bool)
+                {
+                    bool gt = (bool)e.Value;
+                    e.Value = gt ? "Nam" : "Nữ";
+                    e.FormattingApplied = true;
+                }
+            }
+
         }
     }
 }

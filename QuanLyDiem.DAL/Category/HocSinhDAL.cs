@@ -62,5 +62,15 @@ namespace QuanLyDiem.DAL
 
             return DbHelper.ExecuteNonQuery("sp_HocSinh_Delete", p);
         }
+
+        public DataTable LayHocSinhTheoLop(int idLop)
+        {
+            SqlParameter[] pr =
+            {
+                new SqlParameter("@IDLop", idLop)
+            };
+            return DbHelper.ExecuteQuery("sp_HocSinh_GetByLop", pr);
+        }
+
     }
 }

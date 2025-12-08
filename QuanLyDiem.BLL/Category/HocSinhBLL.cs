@@ -11,6 +11,11 @@ namespace QuanLyDiem.BLL
     public class HocSinhBLL
     {
         HocSinhDAL dal = new HocSinhDAL();
+        public DataTable LayHocSinhTheoLop(int idLop)
+        {
+            if (idLop <= 0) return null;
+            return dal.LayHocSinhTheoLop(idLop);
+        }
 
         public DataTable LayDanhSachHS()
         {

@@ -10,6 +10,18 @@ namespace QuanLyDiem.DAL.Point
 {
     public class BangDiemDAL
     {
+        public DataTable LayBangDiem(int idNamHoc, int idHocKy, int idMon, int idLop)
+        {
+            SqlParameter[] pr =
+            {
+                new SqlParameter("@IDNamHoc", idNamHoc),
+                new SqlParameter("@IDHocKy", idHocKy),
+                new SqlParameter("@IDMon", idMon),
+                new SqlParameter("@IDLop", idLop)
+            };
+
+            return DbHelper.ExecuteQuery("sp_BangDiem_GetBangDiem", pr);
+        }
         // Lấy danh sách học sinh theo lớp
         public DataTable GetDanhSachHocSinh(int idLop)
         {
