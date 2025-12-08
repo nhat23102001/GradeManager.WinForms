@@ -1,4 +1,5 @@
-﻿using QuanLyDiem.GUI.Teaching;
+﻿using QuanLyDiem.GUI.Point;
+using QuanLyDiem.GUI.Teaching;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -95,6 +96,11 @@ namespace QuanLyDiem.GUI
         private void mnuPhanCong_Click(object sender, EventArgs e)
         {
             OpenChildForm(new frmPhanCong());
+        }
+
+        private void mnuNhapDiem_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new frmBangDiem());
         }
     }
 }

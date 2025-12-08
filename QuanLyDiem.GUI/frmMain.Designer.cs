@@ -188,8 +188,9 @@
             // mnuNhapDiem
             // 
             this.mnuNhapDiem.Name = "mnuNhapDiem";
-            this.mnuNhapDiem.Size = new System.Drawing.Size(133, 22);
+            this.mnuNhapDiem.Size = new System.Drawing.Size(180, 22);
             this.mnuNhapDiem.Text = "Nhập điểm";
+            this.mnuNhapDiem.Click += new System.EventHandler(this.mnuNhapDiem_Click);
             // 
             // mnuBaoCao
             // 
