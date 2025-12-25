@@ -26,5 +26,15 @@ namespace QuanLyDiem.BLL.Report
         {
             return dal.GetBangDiemHocSinh(idHS, idNamHoc, idHocKy);
         }
+
+        public DataTable LayChiTietMon(
+    int idHS,
+    int idMon,
+    int idNamHoc,
+    int idHocKy)
+        {
+            return dal.GetChiTietMon(idHS, idMon, idNamHoc, idHocKy);
+        }
+
     }
 }

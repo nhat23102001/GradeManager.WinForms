@@ -35,7 +35,7 @@ namespace QuanLyDiem.GUI.Report
             LoadNamHoc();
             LoadHocKy();
 
-            dgvHocSinh.ClearSelection();
+            //dgvHocSinh.ClearSelection();
             dgvBangDiem.ClearSelection();
         }
 
@@ -84,61 +84,61 @@ namespace QuanLyDiem.GUI.Report
 
             selectedIDLop = Convert.ToInt32(cboLop.SelectedValue);
 
-            dgvHocSinh.DataSource = bll.LayHocSinhTheoLop(selectedIDLop);
+            //dgvHocSinh.DataSource = bll.LayHocSinhTheoLop(selectedIDLop);
             FormatDanhSachHocSinh();
 
 
-            dgvHocSinh.Columns["IDHS"].Visible = false;
-            dgvHocSinh.Columns["MaHS"].HeaderText = "Mã HS";
-            dgvHocSinh.Columns["HoTen"].HeaderText = "Họ tên";
-            dgvHocSinh.Columns["NgaySinh"].HeaderText = "Ngày sinh";
-            dgvHocSinh.Columns["DiaChi"].HeaderText = "Địa chỉ";
-            dgvHocSinh.Columns["TenLop"].HeaderText = "Lớp";
+            //dgvHocSinh.Columns["IDHS"].Visible = false;
+            //dgvHocSinh.Columns["MaHS"].HeaderText = "Mã HS";
+            //dgvHocSinh.Columns["HoTen"].HeaderText = "Họ tên";
+            //dgvHocSinh.Columns["NgaySinh"].HeaderText = "Ngày sinh";
+            //dgvHocSinh.Columns["DiaChi"].HeaderText = "Địa chỉ";
+            //dgvHocSinh.Columns["TenLop"].HeaderText = "Lớp";
 
-            dgvHocSinh.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            //dgvHocSinh.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
         private void FormatDanhSachHocSinh()
         {
-            // Ẩn các cột ID
-            dgvHocSinh.Columns["IDHS"].Visible = false;
-            if (dgvHocSinh.Columns.Contains("IDLop"))
-                dgvHocSinh.Columns["IDLop"].Visible = false;
+            //// Ẩn các cột ID
+            //dgvHocSinh.Columns["IDHS"].Visible = false;
+            //if (dgvHocSinh.Columns.Contains("IDLop"))
+            //    dgvHocSinh.Columns["IDLop"].Visible = false;
 
 
-            // Hiển thị tên cột
-            dgvHocSinh.Columns["MaHS"].HeaderText = "Mã HS";
-            dgvHocSinh.Columns["HoTen"].HeaderText = "Họ tên";
-            dgvHocSinh.Columns["NgaySinh"].HeaderText = "Ngày sinh";
-            dgvHocSinh.Columns.Remove("GioiTinh");
+            //// Hiển thị tên cột
+            //dgvHocSinh.Columns["MaHS"].HeaderText = "Mã HS";
+            //dgvHocSinh.Columns["HoTen"].HeaderText = "Họ tên";
+            //dgvHocSinh.Columns["NgaySinh"].HeaderText = "Ngày sinh";
+            //dgvHocSinh.Columns.Remove("GioiTinh");
 
-            DataGridViewTextBoxColumn colGT = new DataGridViewTextBoxColumn();
-            colGT.Name = "GioiTinh";
-            colGT.HeaderText = "Giới tính";
-            colGT.DataPropertyName = "GioiTinh";
-            dgvHocSinh.Columns.Add(colGT);
-            dgvHocSinh.Columns["DiaChi"].HeaderText = "Địa chỉ";
-            dgvHocSinh.Columns["TenLop"].HeaderText = "Lớp";
+            //DataGridViewTextBoxColumn colGT = new DataGridViewTextBoxColumn();
+            //colGT.Name = "GioiTinh";
+            //colGT.HeaderText = "Giới tính";
+            //colGT.DataPropertyName = "GioiTinh";
+            //dgvHocSinh.Columns.Add(colGT);
+            //dgvHocSinh.Columns["DiaChi"].HeaderText = "Địa chỉ";
+            //dgvHocSinh.Columns["TenLop"].HeaderText = "Lớp";
 
     
 
             // Set thứ tự cột
-            dgvHocSinh.Columns["MaHS"].DisplayIndex = 0;
-            dgvHocSinh.Columns["HoTen"].DisplayIndex = 1;
-            dgvHocSinh.Columns["NgaySinh"].DisplayIndex = 2;
-            dgvHocSinh.Columns["GioiTinh"].DisplayIndex = 3;
-            dgvHocSinh.Columns["DiaChi"].DisplayIndex = 4;
-            dgvHocSinh.Columns["TenLop"].DisplayIndex = 5;
+            //dgvHocSinh.Columns["MaHS"].DisplayIndex = 0;
+            //dgvHocSinh.Columns["HoTen"].DisplayIndex = 1;
+            //dgvHocSinh.Columns["NgaySinh"].DisplayIndex = 2;
+            //dgvHocSinh.Columns["GioiTinh"].DisplayIndex = 3;
+            //dgvHocSinh.Columns["DiaChi"].DisplayIndex = 4;
+            //dgvHocSinh.Columns["TenLop"].DisplayIndex = 5;
 
-            // Căn chỉnh
-            dgvHocSinh.Columns["MaHS"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dgvHocSinh.Columns["HoTen"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dgvHocSinh.Columns["NgaySinh"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dgvHocSinh.Columns["GioiTinh"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dgvHocSinh.Columns["DiaChi"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dgvHocSinh.Columns["TenLop"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            //// Căn chỉnh
+            //dgvHocSinh.Columns["MaHS"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            //dgvHocSinh.Columns["HoTen"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            //dgvHocSinh.Columns["NgaySinh"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            //dgvHocSinh.Columns["GioiTinh"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            //dgvHocSinh.Columns["DiaChi"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            //dgvHocSinh.Columns["TenLop"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
 
-            dgvHocSinh.RowHeadersVisible = false;
+            //dgvHocSinh.RowHeadersVisible = false;
         }
 
 
@@ -146,7 +146,7 @@ namespace QuanLyDiem.GUI.Report
         {
             if (e.RowIndex < 0) return;
 
-            selectedIDHS = Convert.ToInt32(dgvHocSinh.Rows[e.RowIndex].Cells["IDHS"].Value);
+            //selectedIDHS = Convert.ToInt32(dgvHocSinh.Rows[e.RowIndex].Cells["IDHS"].Value);
 
             LoadBangDiem();
         }
@@ -165,7 +165,7 @@ namespace QuanLyDiem.GUI.Report
 
             if (dgvBangDiem.DataSource == null) return;
 
-            //dgvBangDiem.Columns["IDBangDiem"].Visible = false;
+            dgvBangDiem.Columns["IDMon"].Visible = false;
             dgvBangDiem.Columns["IDHS"].Visible = false;
             dgvBangDiem.Columns["IDMon"].Visible = false;
             dgvBangDiem.Columns["IDNamHoc"].Visible = false;
@@ -210,22 +210,26 @@ namespace QuanLyDiem.GUI.Report
         {
             if (dgvBangDiem.Rows.Count == 0)
             {
-                MessageBox.Show("Không có dữ liệu để xuất Excel!");
+                MessageBox.Show(
+                    "Không có dữ liệu để xuất Excel!",
+                    "Thông báo",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
                 return;
             }
 
             Excel.Application app = new Excel.Application();
-            app.Visible = true;
-
-            Excel.Workbook wb = app.Workbooks.Add(Type.Missing);
+            Excel.Workbook wb = app.Workbooks.Add();
             Excel.Worksheet ws = (Excel.Worksheet)wb.ActiveSheet;
 
             ws.Name = "Bảng điểm học sinh";
 
             // Tiêu đề
-            for (int i = 1; i <= dgvBangDiem.Columns.Count; i++)
+            for (int i = 0; i < dgvBangDiem.Columns.Count; i++)
             {
-                ws.Cells[1, i] = dgvBangDiem.Columns[i - 1].HeaderText;
+                ws.Cells[1, i + 1] = dgvBangDiem.Columns[i].HeaderText;
+                ws.Cells[1, i + 1].Font.Bold = true;
             }
 
             // Dữ liệu
@@ -237,21 +241,85 @@ namespace QuanLyDiem.GUI.Report
                 }
             }
 
-            MessageBox.Show("Xuất Excel thành công!");
+            ws.Columns.AutoFit();
+            app.Visible = true;
+
+            MessageBox.Show(
+                "Xuất Excel thành công!",
+                "Thành công",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information
+            );
         }
 
         private void dgvHocSinh_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (dgvHocSinh.Columns[e.ColumnIndex].Name == "GioiTinh")
+            //if (dgvHocSinh.Columns[e.ColumnIndex].Name == "GioiTinh")
+            //{
+            //    if (e.Value != null && e.Value is bool)
+            //    {
+            //        bool gt = (bool)e.Value;
+            //        e.Value = gt ? "Nam" : "Nữ";
+            //        e.FormattingApplied = true;
+            //    }
+            //}
+
+        }
+
+        private void btnXem_Click(object sender, EventArgs e)
+        {
+            if (cboLop.SelectedValue == null ||
+        cboHocSinh.SelectedValue == null ||
+        cboNamHoc.SelectedValue == null ||
+        cboHocKy.SelectedValue == null)
             {
-                if (e.Value != null && e.Value is bool)
-                {
-                    bool gt = (bool)e.Value;
-                    e.Value = gt ? "Nam" : "Nữ";
-                    e.FormattingApplied = true;
-                }
+                MessageBox.Show(
+                    "Vui lòng chọn đầy đủ Lớp, Học sinh, Năm học và Học kỳ!",
+                    "Thiếu dữ liệu",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
             }
 
+            int idHS = Convert.ToInt32(cboHocSinh.SelectedValue);
+            int idNamHoc = Convert.ToInt32(cboNamHoc.SelectedValue);
+            int idHocKy = Convert.ToInt32(cboHocKy.SelectedValue);
+
+            dgvBangDiem.DataSource = bll.LayBangDiemHocSinh(idHS, idNamHoc, idHocKy);
+
+            if (dgvBangDiem.Rows.Count == 0)
+            {
+                MessageBox.Show(
+                    "Học sinh chưa có dữ liệu điểm!",
+                    "Thông báo",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+            }
+
+        }
+
+        private void btnThoat_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnChiTiet_Click(object sender, EventArgs e)
+        {
+            if (dgvBangDiem.CurrentRow == null)
+            {
+                MessageBox.Show("Vui lòng chọn một môn để xem chi tiết!");
+                return;
+            }
+
+            int idHS = Convert.ToInt32(cboHocSinh.SelectedValue);
+            int idMon = Convert.ToInt32(dgvBangDiem.CurrentRow.Cells["IDMon"].Value);
+            int idNamHoc = Convert.ToInt32(cboNamHoc.SelectedValue);
+            int idHocKy = Convert.ToInt32(cboHocKy.SelectedValue);
+
+            frmXemChiTiet frm = new frmXemChiTiet(idHS, idMon, idNamHoc, idHocKy);
+            frm.ShowDialog();
         }
     }
 }
